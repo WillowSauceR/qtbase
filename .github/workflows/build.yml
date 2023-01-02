@@ -16,6 +16,7 @@ jobs:
     - name: Set up Qt
       run: |
         choco install qt5
+        dir C:\Qt
         setx QMAKE "C:\Qt\5.15.0\msvc2019\bin\qmake.exe"
         
     - name: Build Qt/qtbase
@@ -30,7 +31,6 @@ jobs:
           **/*.dll
           **/*.lib
           **/*.exe
-          **/*.a
         name: qtbase-${{ github.run_id }}
         
     - name: Create release
