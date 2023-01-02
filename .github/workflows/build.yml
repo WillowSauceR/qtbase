@@ -13,9 +13,9 @@ jobs:
     - uses: actions/checkout@v2
     - name: Set up Qt
       run: |
-        choco install qt
-        dir C:\Qt
-        setx QMAKE "C:\Qt\5.15.0\msvc2019\bin\qmake.exe"
+        choco install qt5-default
+        dir C:\Qt\5.15.2
+        setx QMAKE "C:\Qt\5.15.2\msvc2019\bin\qmake.exe"
         
     - name: Build Qt/qtbase
       run: |
