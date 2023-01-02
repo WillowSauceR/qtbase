@@ -1,0 +1,54 @@
+name: Build and release Qt/qtbase
+
+on: 
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Qt
+      run: |
+        choco install qt5
+        setx QMAKE "C:\Qt\5.15.0\msvc2019\bin\qmake.exe"
+        
+    - name: Build Qt/qtbase
+      run: |
+        qmake -config static
+        nmake
+        
+    - name: Package files
+      uses: TheDoctor0/zip-release@v1
+      with:
+        files: |
+          **/*.dll
+          **/*.lib
+          **/*.exe
+          **/*.a
+        name: qtbase-${{ github.run_id }}
+        
+    - name: Create release
+      uses: actions/create-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        tag_name: ${{ github.run_id }}
+        release_name: Release ${{ github.run_id }}
+        draft: false
+        prerelease: false
+        
+    - name: Upload assets
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: qtbase-${{ github.run_id }}.zip
+        asset_name: qtbase-${{ github.run_id }}.zip
+        asset_content_type: application/zip
