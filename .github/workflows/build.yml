@@ -11,13 +11,16 @@ jobs:
     runs-on: windows-latest
     steps:
     - uses: actions/checkout@v2
-    - name: Set up Qt & Python
-      run: |
-        choco install qt5-default
-        choco install python
-        choco install cmake
-        choco install jom
+    
+    - name: Install Qt
+      uses: jurplel/install-qt-action@v3
       
+    - uses: actions/setup-python@v4
+      with:
+        python-version: '3.11' 
+        
+    - name: Setup cmake
+      uses: jwlawson/actions-setup-cmake@v1.13
         
     - name: Build Qt/qtbase
       run: |
