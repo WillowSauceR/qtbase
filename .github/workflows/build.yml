@@ -15,11 +15,13 @@ jobs:
       run: |
         choco install qt5-default
         choco install python
+        choco install cmake
+        choco install jom
       
         
     - name: Build Qt/qtbase
       run: |
-        ./configure.bat -static -release -opensource -nomake examples -nomake tests
+        .\configure.bat -static -release -opensource -nomake examples -nomake tests
         nmake
         
     - name: Package files
