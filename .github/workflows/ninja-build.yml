@@ -9,7 +9,9 @@
 
 name: Smoke build
 
-on: push
+on:
+  workflow_dispatch:
+
 
 env:
   BRANCH:     dev
