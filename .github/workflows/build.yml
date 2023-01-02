@@ -14,13 +14,11 @@ jobs:
     - name: Set up Qt
       run: |
         choco install qt5-default
-        dir C:\Qt\5.15.2
-        setx QMAKE "C:\Qt\5.15.2\mingw81_64\bin\qmake.exe"
         
     - name: Build Qt/qtbase
       run: |
-        qmake -config static
-        nmake
+        C:\Qt\5.15.2\mingw81_64\bin\qmake.exe -config static
+        C:\Qt\5.15.2\mingw81_64\bin\nmake.exe
         
     - name: Package files
       uses: TheDoctor0/zip-release@0.6.2
