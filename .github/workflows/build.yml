@@ -15,7 +15,7 @@ jobs:
       run: |
         choco install qt5-default
         dir C:\Qt\5.15.2
-        setx QMAKE "C:\Qt\5.15.2\msvc2019\bin\qmake.exe"
+        setx QMAKE "C:\Qt\5.15.2\mingw81_64\bin\qmake.exe"
         
     - name: Build Qt/qtbase
       run: |
