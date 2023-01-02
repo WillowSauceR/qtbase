@@ -23,7 +23,7 @@ jobs:
         nmake
         
     - name: Package files
-      uses: TheDoctor0/zip-release@v1
+      uses: TheDoctor0/zip-release@0.6.2
       with:
         files: |
           **/*.dll
