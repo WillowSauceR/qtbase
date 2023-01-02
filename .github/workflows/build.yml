@@ -11,14 +11,16 @@ jobs:
     runs-on: windows-latest
     steps:
     - uses: actions/checkout@v2
-    - name: Set up Qt
+    - name: Set up Qt & Python
       run: |
         choco install qt5-default
+        choco install python
+      
         
     - name: Build Qt/qtbase
       run: |
-        C:\Qt\5.15.2\mingw81_64\bin\qmake.exe -config static
-        C:\Qt\5.15.2\mingw81_64\bin\nmake.exe
+        ./configure.bat -static -release -opensource -nomake examples -nomake tests
+        nmake
         
     - name: Package files
       uses: TheDoctor0/zip-release@0.6.2
